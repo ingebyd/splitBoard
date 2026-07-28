@@ -37,7 +37,7 @@ enum Layouts {
 
     // MARK: - Compact layout (also used by both halves when split)
 
-    static func rows(language: KBLanguage, plane: KeyPlane, split: Bool) -> [KeyRow] {
+    static func rows(language: KBLanguage, plane: KeyPlane) -> [KeyRow] {
         switch plane {
         case .letters: return letterRows(language)
         case .numbers: return numberRows()
@@ -156,7 +156,7 @@ enum Layouts {
         } else {
             keys.append(characterKey("ё", flickHints: false))
         }
-        keys.append(returnBottom(language))
+        keys.append(returnBottom())
         return keys
     }
 
@@ -196,7 +196,7 @@ enum Layouts {
         keys += items.map { KeySpec(action: .input($0), label: $0) }
         switch row {
         case 1: keys.append(returnTop())
-        case 2: keys.append(returnBottom(.en))
+        case 2: keys.append(returnBottom())
         default: keys.append(KeySpec(action: .plane(.symbols), label: "#+=", width: 1.75, style: .special))
         }
         // Pad the row so that every extended row spans the same width.
@@ -225,7 +225,7 @@ enum Layouts {
                 extendsIntoRowGap: true)
     }
 
-    private static func returnBottom(_ language: KBLanguage) -> KeySpec {
+    private static func returnBottom() -> KeySpec {
         KeySpec(action: .ret, symbol: "return.left", width: 1.0, style: .special,
                 corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
     }

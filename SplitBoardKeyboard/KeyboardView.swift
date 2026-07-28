@@ -56,7 +56,7 @@ final class KeyboardView: UIView, KeyViewDelegate {
         panels.forEach { $0.removeFromSuperview() }
         panels.removeAll()
 
-        let rows = Layouts.rows(language: language, plane: plane, split: isSplit)
+        let rows = Layouts.rows(language: language, plane: plane)
 
         if isSplit {
             let metrics = Theme.split(width: effectiveWidth, pad: isPad)

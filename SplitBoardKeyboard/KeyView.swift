@@ -134,15 +134,6 @@ final class KeyView: UIView {
         setNeedsLayout()
     }
 
-    /// Temporary caption in the middle of a key (used for the space bar).
-    func setCaption(_ text: String?) {
-        titleLabel.isHidden = false
-        titleLabel.text = text
-        titleLabel.font = .systemFont(ofSize: metrics.captionFontSize * 0.95, weight: .regular)
-        titleLabel.textColor = Theme.keySecondaryLabel
-        setNeedsLayout()
-    }
-
     private func refreshText() {
         let isCaption = !spec.isCharacter
         titleLabel.text = displayText
