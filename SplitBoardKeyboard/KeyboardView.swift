@@ -5,6 +5,9 @@ protocol KeyboardViewDelegate: AnyObject {
     func keyboardView(_ view: KeyboardView, didRelease key: KeyView, flicked: Bool)
     func keyboardView(_ view: KeyboardView, didCancel key: KeyView)
     func keyboardView(_ view: KeyboardView, didLongPress key: KeyView, event: UIEvent?)
+    /// A character was picked from the long-press popup; it replaces whatever
+    /// the key already inserted on touch-down.
+    func keyboardView(_ view: KeyboardView, didSelectAlternate text: String, for key: KeyView)
 }
 
 /// Lays out the whole keyboard: one panel when merged, two edge-anchored panels
@@ -29,6 +32,9 @@ final class KeyboardView: UIView, KeyViewDelegate {
     var onContentHeightChange: (() -> Void)?
 
     private var panels: [KeyPanel] = []
+    private var currentMetrics = Theme.merged(width: 1032, pad: true)
+    private var activePopup: AlternatesPopup?
+    private weak var popupKey: KeyView?
     private var leftRowUnits: CGFloat = 1
     private var rightRowUnits: CGFloat = 1
 
@@ -46,6 +52,7 @@ final class KeyboardView: UIView, KeyViewDelegate {
     private var effectiveWidth: CGFloat { max(layoutWidth, bounds.width, 1) }
 
     func rebuild() {
+        dismissAlternates()
         panels.forEach { $0.removeFromSuperview() }
         panels.removeAll()
 
@@ -53,6 +60,7 @@ final class KeyboardView: UIView, KeyViewDelegate {
 
         if isSplit {
             let metrics = Theme.split(width: effectiveWidth, pad: isPad)
+            currentMetrics = metrics
             var left: [[KeySpec]] = []
             var right: [[KeySpec]] = []
             for row in rows {
@@ -76,6 +84,7 @@ final class KeyboardView: UIView, KeyViewDelegate {
             }
         } else if usesExtendedLayout {
             let metrics = Theme.extended(width: effectiveWidth)
+            currentMetrics = metrics
             let panel = KeyPanel(rows: Layouts.extendedRows(language: language, plane: plane),
                                  metrics: metrics, delegate: self)
             panel.fillsHeight = true
@@ -84,6 +93,7 @@ final class KeyboardView: UIView, KeyViewDelegate {
             panels.append(panel)
         } else {
             let metrics = Theme.merged(width: effectiveWidth, pad: isPad)
+            currentMetrics = metrics
             var specs = rows.map { $0.keys }
             specs.append(Layouts.bottomRowMerged(language: language, plane: plane,
                                                  splitAvailable: isPad))
@@ -182,21 +192,69 @@ final class KeyboardView: UIView, KeyViewDelegate {
         }
     }
 
+    // MARK: - Alternate characters popup
+
+    private func showAlternates(for key: KeyView) -> Bool {
+        guard case .input(let base) = key.spec.action else { return false }
+        let text = key.displayText.isEmpty ? base : key.displayText
+        let options = [text] + Alternates.list(for: text, language: language)
+        guard options.count > 1, let panel = key.superview else { return false }
+
+        let popup = AlternatesPopup(options: options, metrics: currentMetrics)
+        let keyFrame = panel.convert(key.frame, to: self)
+        let size = popup.intrinsicContentSize
+        var x = keyFrame.midX - size.width / 2
+        x = min(max(x, 4), max(bounds.width - size.width - 4, 4))
+        var y = keyFrame.minY - size.height - 6
+        if y < 2 { y = keyFrame.maxY + 6 }
+        popup.frame = CGRect(x: x, y: y, width: size.width, height: size.height)
+        popup.alpha = 0
+        addSubview(popup)
+        UIView.animate(withDuration: 0.08) { popup.alpha = 1 }
+
+        activePopup = popup
+        popupKey = key
+        key.isShowingAlternates = true
+        return true
+    }
+
+    private func dismissAlternates() {
+        popupKey?.isShowingAlternates = false
+        activePopup?.removeFromSuperview()
+        activePopup = nil
+        popupKey = nil
+    }
+
     // MARK: - KeyViewDelegate
 
     func keyViewPressed(_ key: KeyView, event: UIEvent?) {
+        dismissAlternates()
         delegate?.keyboardView(self, didPress: key, event: event)
     }
 
     func keyViewReleased(_ key: KeyView, flicked: Bool) {
+        if let popup = activePopup, popupKey === key {
+            let text = popup.selectedText
+            dismissAlternates()
+            delegate?.keyboardView(self, didSelectAlternate: text, for: key)
+            return
+        }
         delegate?.keyboardView(self, didRelease: key, flicked: flicked)
     }
 
     func keyViewCancelled(_ key: KeyView) {
+        if popupKey === key { dismissAlternates() }
         delegate?.keyboardView(self, didCancel: key)
     }
 
     func keyViewLongPressed(_ key: KeyView, event: UIEvent?) {
+        if showAlternates(for: key) { return }
         delegate?.keyboardView(self, didLongPress: key, event: event)
+    }
+
+    func keyViewTouchMoved(_ key: KeyView, to pointInKey: CGPoint) {
+        guard let popup = activePopup, popupKey === key else { return }
+        let inSelf = key.convert(pointInKey, to: self)
+        popup.updateSelection(atX: inSelf.x - popup.frame.minX)
     }
 }

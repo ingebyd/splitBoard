@@ -5,6 +5,7 @@ protocol KeyViewDelegate: AnyObject {
     func keyViewReleased(_ key: KeyView, flicked: Bool)
     func keyViewCancelled(_ key: KeyView)
     func keyViewLongPressed(_ key: KeyView, event: UIEvent?)
+    func keyViewTouchMoved(_ key: KeyView, to pointInKey: CGPoint)
 }
 
 /// A single key. Draws itself like a stock iPadOS key: rounded rect, one point
@@ -42,6 +43,9 @@ final class KeyView: UIView {
 
     /// Extra invisible touch area around the key.
     var hitInset: CGFloat = 0
+
+    /// True while the alternate-characters popup is open above this key.
+    var isShowingAlternates = false
 
     init(spec: KeySpec, metrics: Theme.Metrics) {
         self.spec = spec
@@ -239,9 +243,15 @@ final class KeyView: UIView {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first, spec.secondary != nil else { return }
+        guard let touch = touches.first else { return }
+        if isShowingAlternates {
+            delegate?.keyViewTouchMoved(self, to: touch.location(in: self))
+            return
+        }
+        guard spec.secondary != nil else { return }
         let dy = touch.location(in: self).y - touchStart.y
         let dx = abs(touch.location(in: self).x - touchStart.x)
+        if abs(dy) > 4 || dx > 4 { cancelLongPressTimer() }
         let shouldFlick = dy > bounds.height * 0.42 && dy > dx
         if shouldFlick != isFlicked {
             isFlicked = shouldFlick

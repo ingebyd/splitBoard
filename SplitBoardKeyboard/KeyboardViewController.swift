@@ -148,6 +148,14 @@ final class KeyboardViewController: UIInputViewController, KeyboardViewDelegate 
         }
     }
 
+    func keyboardView(_ view: KeyboardView, didSelectAlternate text: String, for key: KeyView) {
+        if let pending = pendingInsertions.removeValue(forKey: ObjectIdentifier(key)) {
+            for _ in 0..<pending.count { textDocumentProxy.deleteBackward() }
+        }
+        textDocumentProxy.insertText(text)
+        if keyboardView.shiftState == .on { keyboardView.shiftState = .off }
+    }
+
     func keyboardView(_ view: KeyboardView, didLongPress key: KeyView, event: UIEvent?) {
         switch key.spec.action {
         case .globe:

@@ -38,6 +38,11 @@ enum Theme {
 
     static let keyLabel = dynamic(light: .black, dark: .white)
 
+    /// Long-press popup with alternate characters.
+    static let popupBackground = dynamic(
+        light: .white,
+        dark:  UIColor(red: 0.361, green: 0.361, blue: 0.373, alpha: 1))
+
     static let keySecondaryLabel = dynamic(
         light: UIColor(red: 0.443, green: 0.455, blue: 0.486, alpha: 1),
         dark:  UIColor(white: 1.0, alpha: 0.55))
