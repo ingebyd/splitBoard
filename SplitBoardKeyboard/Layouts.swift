@@ -143,8 +143,11 @@ enum Layouts {
     }
 
     private static func lettersRow2(_ language: KBLanguage, _ letters: [String]) -> [KeySpec] {
-        var keys: [KeySpec] = [KeySpec(action: .capsLock, label: "abc", width: 1.5,
-                                       style: .special, leftAligned: true)]
+        // The stock keyboard puts the "other alphabet" key here: it flips the
+        // layout between Latin and Cyrillic.
+        var keys: [KeySpec] = [KeySpec(action: .switchLanguage,
+                                       label: language == .en ? "абв" : "abc",
+                                       width: 1.5, style: .special, leftAligned: true)]
         keys += Array(letters[1]).map { characterKey($0, flickHints: false) }
         if language == .en {
             keys.append(dualKey(base: ";", shifted: ":"))
@@ -158,7 +161,7 @@ enum Layouts {
     }
 
     private static func lettersRow3(_ language: KBLanguage, _ letters: [String]) -> [KeySpec] {
-        var keys: [KeySpec] = [KeySpec(action: .shift, symbol: "shift.fill",
+        var keys: [KeySpec] = [KeySpec(action: .shift, symbol: "shift",
                                        width: 1.75, style: .special, leftAligned: true)]
         if language == .en {
             keys.append(dualKey(base: "`", shifted: "~"))
@@ -173,7 +176,7 @@ enum Layouts {
         } else {
             keys.append(dualKey(base: "/", shifted: "?"))
         }
-        keys.append(KeySpec(action: .shift, symbol: "shift.fill", width: 1.75, style: .special))
+        keys.append(KeySpec(action: .shift, symbol: "shift", width: 1.75, style: .special))
         return keys
     }
 

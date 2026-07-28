@@ -16,25 +16,24 @@ enum Theme {
     /// Backdrop behind the keys (matches the stock iPadOS 26 keyboard).
     static let backdrop = dynamic(
         light: UIColor(red: 0.886, green: 0.894, blue: 0.910, alpha: 1),   // #E2E4E8
-        dark:  UIColor(red: 0.110, green: 0.110, blue: 0.118, alpha: 1))   // #1C1C1E
+        dark:  UIColor(red: 0.090, green: 0.090, blue: 0.090, alpha: 1))   // #171717
 
     /// Regular character key. iPadOS 26 uses the same colour for modifier keys.
     static let keyNormal = dynamic(
         light: .white,
-        dark:  UIColor(red: 0.290, green: 0.290, blue: 0.302, alpha: 1))   // #4A4A4D
+        dark:  UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1))   // #3D3D3D
 
     static let keyNormalPressed = dynamic(
         light: UIColor(red: 0.839, green: 0.847, blue: 0.867, alpha: 1),
-        dark:  UIColor(red: 0.400, green: 0.400, blue: 0.416, alpha: 1))
+        dark:  UIColor(red: 0.365, green: 0.365, blue: 0.365, alpha: 1))
 
     /// Modifier keys: shift, delete, plane switch, globe, dismiss.
     static let keySpecial = keyNormal
     static let keySpecialPressed = keyNormalPressed
 
-    /// Shift / caps-lock engaged.
-    static let keyActivated = dynamic(
-        light: UIColor(red: 0.780, green: 0.792, blue: 0.816, alpha: 1),
-        dark:  UIColor(red: 0.475, green: 0.475, blue: 0.490, alpha: 1))
+    /// Shift / caps-lock engaged. The stock keyboard keeps the key colour and
+    /// only swaps the glyph, so this is the plain key colour.
+    static let keyActivated = keyNormal
 
     static let keyLabel = dynamic(light: .black, dark: .white)
 

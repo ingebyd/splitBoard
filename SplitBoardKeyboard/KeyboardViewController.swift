@@ -108,8 +108,8 @@ final class KeyboardViewController: UIInputViewController, KeyboardViewDelegate 
             startBackspaceRepeat()
         case .shift:
             handleShiftTap()
-        case .capsLock:
-            keyboardView.shiftState = keyboardView.shiftState == .locked ? .off : .locked
+        case .switchLanguage:
+            switchLanguage()
         case .tab:
             textDocumentProxy.insertText("\t")
         case .plane(let plane):

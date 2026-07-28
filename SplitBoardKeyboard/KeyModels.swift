@@ -19,7 +19,7 @@ enum KeyAction: Equatable {
     case input(String)
     case backspace
     case shift
-    case capsLock
+    case switchLanguage
     case tab
     case space
     case ret

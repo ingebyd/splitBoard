@@ -159,8 +159,7 @@ final class KeyboardView: UIView, KeyViewDelegate {
                     key.isActivated = shiftState != .off
                     key.updateSymbol(shiftState == .locked ? "capslock.fill"
                                      : (shiftState == .on ? "shift.fill" : (key.spec.symbol ?? "shift")))
-                case .capsLock:
-                    key.isActivated = shiftState == .locked
+
                 default:
                     break
                 }
