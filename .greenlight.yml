@@ -1,0 +1,10 @@
+# Конфиг greenlight (проверка перед выкладкой в App Store).
+ignore:
+  - build
+  - build-device
+rules:
+  # Ложное срабатывание: правило ловит слово "register" в
+  # registerForTraitChanges (UIKit API про смену темы). Аккаунтов в приложении
+  # нет вообще, регистрации и входа тоже.
+  account-no-delete:
+    enabled: false

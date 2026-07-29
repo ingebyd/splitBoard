@@ -21,12 +21,16 @@ fi
 
 echo "==> Устройство: $UDID"
 
+# Держим продукты сборки вне репозитория: иначе сканеры вроде greenlight
+# принимают служебные plist-ы Xcode за метаданные приложения.
+DD="${TMPDIR:-/tmp}/SplitBoard-device-build"
+
 build() {
   xcodebuild -project SplitBoard.xcodeproj \
              -scheme SplitBoard \
              -configuration Debug \
              -destination "id=$UDID" \
-             -derivedDataPath build-device \
+             -derivedDataPath "$DD" \
              -allowProvisioningUpdates \
              -allowProvisioningDeviceRegistration \
              build
@@ -41,7 +45,7 @@ if ! build | tail -5; then
   build | tail -5
 fi
 
-APP="build-device/Build/Products/Debug-iphoneos/SplitBoard.app"
+APP="$DD/Build/Products/Debug-iphoneos/SplitBoard.app"
 echo "==> Установка $APP"
 if ! xcrun devicectl device install app --device "$UDID" "$APP"; then
   echo
