@@ -45,7 +45,8 @@
 ## 6. Сборка (я, по команде)
 
 - [ ] Поднять `CURRENT_PROJECT_VERSION`, если это повторная загрузка
-- [ ] `./archive.sh` - собирает Release-архив в `build/SplitBoard.xcarchive`
+- [ ] `./archive.sh` - собирает Release-архив прямо в папку Xcode Organizer
+      (`~/Library/Developer/Xcode/Archives/<дата>/`), иначе Organizer его не покажет
 - [ ] `greenlight preflight .` перед отправкой (сейчас зелёный)
 
 ## 7. Загрузка (ты)
