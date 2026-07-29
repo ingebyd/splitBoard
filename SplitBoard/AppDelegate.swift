@@ -28,7 +28,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             language = parsed
         }
         let text = args.firstIndex(of: "-galleryText").map { args[$0 + 1] }
-            ?? "Hold the iPad in both hands and type with your thumbs."
+            ?? "Hold the iPad in both hands and keep typing."
         return GalleryViewController(split: split, language: language, text: text)
     }
 

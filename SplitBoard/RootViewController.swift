@@ -15,8 +15,8 @@ final class RootViewController: UIViewController, UIScrollViewDelegate {
         Page(image: "onb-split",
              title: "The split keyboard is back",
              body: "iPadOS 26 dropped the split keyboard. SplitBoard brings it back: two halves "
-                 + "pinned to the edges of the screen, sized for typing with your thumbs while "
-                 + "you hold the iPad."),
+                 + "pinned to the edges of the screen, close enough to type on while you hold "
+                 + "the iPad in both hands."),
         Page(image: "onb-settings",
              title: "Turn it on",
              body: "Settings → General → Keyboard → Keyboards → Add New Keyboard → SplitBoard.\n"

@@ -10,12 +10,12 @@ Split keyboard for iPad
 thumb,typing,ergonomic,halves,two,hand,layout,russian,cyrillic,input,text,type,hold,ipados
 
 ## Promotional text (170)
-The split keyboard is back, this time as one you install yourself. Two halves at the edges of the screen, sized for thumbs.
+Hold the iPad in both hands and keep typing. One key splits the keyboard into two halves that sit at the left and right edges of the screen.
 
 ## Description
 iPadOS 26 dropped the split keyboard. SplitBoard puts it back.
 
-The keyboard breaks into two halves that sit against the left and right edges of the screen, close enough to reach with your thumbs while both hands hold the iPad. One key in the bottom row splits it, the same key puts it back together, and it opens next time the way you left it.
+The keyboard breaks into two halves that sit against the left and right edges of the screen, within reach while both hands hold the iPad. One key in the bottom row splits it, the same key puts it back together, and it opens next time the way you left it.
 
 WHAT IT DOES
 
