@@ -1,43 +1,40 @@
 # SplitBoard Privacy Policy
 
-_Last updated: 29 July 2026_
+Last updated: 29 July 2026
 
-SplitBoard is a keyboard for iPad. It does not collect, store or transmit any
-personal data.
+SplitBoard is a keyboard for iPad. It collects nothing about you.
 
-## What SplitBoard does not do
+## No network access
 
-- It does not request **Full Access**. Without Full Access iOS does not allow a
-  keyboard extension to use the network, so what you type cannot leave your
-  device even in principle.
-- It contains no analytics, no advertising and no third-party SDKs.
-- It has no accounts and no sign-in.
-- It does not read your contacts, photos, location or any other personal data.
+SplitBoard does not ask for Full Access. iOS keeps network access away from
+keyboards that do not have it, so anything typed on SplitBoard stays on the
+iPad. The app has no networking code to begin with.
 
-## What is stored on your device
+## No analytics, no accounts
 
-SplitBoard keeps two settings in the keyboard's own storage on your iPad:
+There is no analytics library, no advertising, no crash reporter and no
+sign-in of any kind.
 
-- whether the keyboard was left split or merged;
-- which of the two languages (English or Russian) was in use.
+## What is stored on the iPad
 
-These settings never leave the device and are removed when you delete the app.
+The keyboard remembers two things in its own storage: whether you left it split
+or merged, and which of the two languages you were typing in. Deleting the app
+deletes both.
 
-## Text you type
+## What you type
 
-Text you type is passed straight to the app you are typing in, exactly as with
-the built-in keyboard. SplitBoard does not log, save or send it anywhere.
+Text goes straight to the app you are typing in, the same way it does with the
+built-in keyboard. SplitBoard does not log it and does not keep a copy.
 
 ## Children
 
-SplitBoard is suitable for all ages and collects no data from anyone,
-including children.
+Nothing is collected from anyone, children included.
 
 ## Changes
 
-If this policy ever changes, the updated version will be published at this
-address and the date at the top will be updated.
+If this policy changes, the new version appears on this page and the date above
+is updated.
 
 ## Contact
 
-Questions: <your email here>
+Write to: <your email here>

@@ -10,26 +10,26 @@ Split keyboard for iPad
 thumb,typing,ergonomic,halves,two,hand,layout,russian,cyrillic,input,text,type,hold,ipados
 
 ## Promotional text (170)
-The split keyboard iPadOS 26 took away, back as a keyboard you can install. Two halves at the edges of the screen, made for typing with your thumbs.
+The split keyboard is back, this time as one you install yourself. Two halves at the edges of the screen, sized for thumbs.
 
 ## Description
-iPadOS 26 removed the split keyboard. SplitBoard brings it back.
+iPadOS 26 dropped the split keyboard. SplitBoard puts it back.
 
-Two halves, pinned to the left and right edges of the screen and sized for your thumbs, so you can type while holding the iPad in both hands. One key splits the keyboard and merges it back, and SplitBoard remembers how you left it.
+The keyboard breaks into two halves that sit against the left and right edges of the screen, close enough to reach with your thumbs while both hands hold the iPad. One key in the bottom row splits it, the same key puts it back together, and it opens next time the way you left it.
 
-WHAT YOU GET
+WHAT IT DOES
 
-• Split and merge from a single key in the bottom row
-• The full iPad layout when merged: number row, tab, ISO return key
-• English and Russian in one keyboard, switched by the abc / абв key or by the globe
-• Hold a key for accented letters, quotes, dashes and currency signs
-• Swipe down on a key to type the number or symbol printed on it
-• Automatic capitalisation, double space for a full stop, double tap on shift for caps lock
-• Light and dark appearance, portrait and landscape
+• Splits and merges from one key, no gestures to discover
+• Keeps the full iPad layout when merged: number row, tab, return
+• Holds English and Russian at once, switched by the abc / абв key next to A
+• Shows accented letters, quotes, dashes and currency signs when you hold a key
+• Types the number or symbol printed on a key when you swipe down on it
+• Capitalises after a full stop, turns a double space into ". ", locks caps on a double tap of shift
+• Follows light and dark, works in portrait and landscape
 
 PRIVACY
 
-SplitBoard never asks for Full Access. Without it a keyboard cannot send anything anywhere, which means nothing you type can leave your iPad. There are no accounts, no analytics and no network code in the app at all.
+SplitBoard does not ask for Full Access. iOS keeps keyboards without it off the network, so what you type stays on the iPad. The app has no accounts and no analytics, and there is no networking code in it.
 
 ## What's New (version 1.0)
 First release.
@@ -40,6 +40,6 @@ First release.
 - Age rating: 4+
 - Price: free (can be changed later; existing downloads stay free)
 - Copyright: 2026 Vladislav Rzhevicky
-- Support URL: https://github.com/<user>/splitboard  (set before submitting)
-- Privacy Policy URL: https://<user>.github.io/splitboard/privacy  (set before submitting)
+- Support URL: https://ingebyd.github.io/splitBoard/
+- Privacy Policy URL: https://ingebyd.github.io/splitBoard/privacy.html
 - App Privacy: Data Not Collected (every category answered "No")
