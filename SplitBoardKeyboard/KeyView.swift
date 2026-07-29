@@ -17,7 +17,6 @@ final class KeyView: UIView {
 
     private let titleLabel = UILabel()
     private let secondaryLabel = UILabel()
-    private let topLabel = UILabel()       // shifted glyph of a dual key
     private let trailingLabel = UILabel()  // language hint on the space bar
     private let iconView = UIImageView()
 
@@ -69,19 +68,12 @@ final class KeyView: UIView {
 
         secondaryLabel.textAlignment = .center
         secondaryLabel.isUserInteractionEnabled = false
-        secondaryLabel.font = .systemFont(ofSize: metrics.secondaryFontSize, weight: .regular)
+        secondaryLabel.font = Theme.keycapFont(ofSize: metrics.secondaryFontSize)
         addSubview(secondaryLabel)
-
-        topLabel.textAlignment = .center
-        topLabel.isUserInteractionEnabled = false
-        topLabel.isHidden = spec.labelStyle != .dual
-        topLabel.text = spec.secondary
-        topLabel.font = .systemFont(ofSize: metrics.fontSize * 0.72, weight: .regular)
-        addSubview(topLabel)
 
         trailingLabel.textAlignment = .right
         trailingLabel.isUserInteractionEnabled = false
-        trailingLabel.font = .systemFont(ofSize: max(metrics.secondaryFontSize, 10), weight: .regular)
+        trailingLabel.font = Theme.keycapFont(ofSize: max(metrics.secondaryFontSize, 10))
         trailingLabel.isHidden = true
         addSubview(trailingLabel)
 
@@ -114,8 +106,7 @@ final class KeyView: UIView {
         }
 
         secondaryLabel.text = spec.secondary
-        secondaryLabel.isHidden = spec.labelStyle == .dual
-            || spec.secondary == nil || metrics.secondaryFontSize < 6
+        secondaryLabel.isHidden = spec.secondary == nil || metrics.secondaryFontSize < 6
         refreshText()
     }
 
@@ -137,12 +128,8 @@ final class KeyView: UIView {
     private func refreshText() {
         let isCaption = !spec.isCharacter
         titleLabel.text = displayText
-        let size: CGFloat
-        switch spec.labelStyle {
-        case .dual: size = metrics.fontSize * 0.72
-        case .single: size = isCaption ? metrics.captionFontSize : metrics.fontSize
-        }
-        titleLabel.font = .systemFont(ofSize: size, weight: .regular)
+        titleLabel.font = Theme.keycapFont(ofSize: isCaption ? metrics.captionFontSize
+                                                             : metrics.fontSize)
         setNeedsLayout()
     }
 
@@ -163,7 +150,6 @@ final class KeyView: UIView {
             }
         }
         backgroundColor = bg
-        topLabel.textColor = fg
         titleLabel.textColor = fg
         iconView.tintColor = fg
         secondaryLabel.textColor = Theme.keySecondaryLabel
@@ -178,14 +164,6 @@ final class KeyView: UIView {
         super.layoutSubviews()
         layer.shadowPath = UIBezierPath(roundedRect: bounds,
                                         cornerRadius: metrics.cornerRadius).cgPath
-
-        if spec.labelStyle == .dual {
-            let half = bounds.height / 2
-            topLabel.frame = CGRect(x: 0, y: bounds.height * 0.10, width: bounds.width, height: half * 0.85)
-            titleLabel.frame = CGRect(x: 0, y: bounds.height * 0.50, width: bounds.width, height: half * 0.85)
-            iconView.frame = bounds
-            return
-        }
 
         let hasSecondary = !secondaryLabel.isHidden
         let contentDrop: CGFloat = hasSecondary ? metrics.secondaryFontSize * 0.35 : 0

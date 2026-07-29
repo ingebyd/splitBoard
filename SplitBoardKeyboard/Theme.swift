@@ -27,13 +27,19 @@ enum Theme {
         light: UIColor(red: 0.839, green: 0.847, blue: 0.867, alpha: 1),
         dark:  UIColor(red: 0.365, green: 0.365, blue: 0.365, alpha: 1))
 
-    /// Modifier keys: shift, delete, plane switch, globe, dismiss.
-    static let keySpecial = keyNormal
-    static let keySpecialPressed = keyNormalPressed
+    /// Modifier keys: shift, delete, plane switch, globe, dismiss. A touch
+    /// darker than the letters, unlike iPadOS 26 where every key is one colour.
+    static let keySpecial = dynamic(
+        light: UIColor(red: 0.933, green: 0.937, blue: 0.949, alpha: 1),   // #EEEFF2
+        dark:  UIColor(red: 0.196, green: 0.196, blue: 0.200, alpha: 1))   // #323233
 
-    /// Shift / caps-lock engaged. The stock keyboard keeps the key colour and
-    /// only swaps the glyph, so this is the plain key colour.
-    static let keyActivated = keyNormal
+    static let keySpecialPressed = dynamic(
+        light: UIColor(red: 0.851, green: 0.859, blue: 0.878, alpha: 1),
+        dark:  UIColor(red: 0.310, green: 0.310, blue: 0.318, alpha: 1))
+
+    /// Shift / caps-lock engaged: the glyph does the talking, the key keeps its
+    /// modifier colour.
+    static let keyActivated = keySpecial
 
     static let keyLabel = dynamic(light: .black, dark: .white)
 
@@ -49,6 +55,16 @@ enum Theme {
     static let keyShadow = dynamic(
         light: UIColor(white: 0.0, alpha: 0.10),
         dark:  UIColor(white: 0.0, alpha: 0.35))
+
+    // MARK: - Type
+
+    /// Keycap typeface: the system font in its rounded design. Same metrics and
+    /// legibility as the stock keyboard, visibly not the same face.
+    static func keycapFont(ofSize size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
+        let base = UIFont.systemFont(ofSize: size, weight: weight)
+        guard let descriptor = base.fontDescriptor.withDesign(.rounded) else { return base }
+        return UIFont(descriptor: descriptor, size: size)
+    }
 
     // MARK: - Metrics
 
@@ -87,7 +103,7 @@ enum Theme {
                        topInset: 10 * scale,
                        bottomInset: 8 * scale,
                        sideInset: 6 * scale,
-                       cornerRadius: 9 * scale,
+                       cornerRadius: 8 * scale,
                        fontSize: 26 * scale,
                        secondaryFontSize: 13 * scale,
                        symbolSize: 22 * scale,
@@ -103,7 +119,7 @@ enum Theme {
                        topInset: 9 * scale,
                        bottomInset: 9 * scale,
                        sideInset: 8 * scale,
-                       cornerRadius: 9 * scale,
+                       cornerRadius: 8 * scale,
                        fontSize: 25 * scale,
                        secondaryFontSize: 12 * scale,
                        symbolSize: 21 * scale,
@@ -119,9 +135,10 @@ enum Theme {
                        topInset: 9 * scale,
                        bottomInset: 7 * scale,
                        sideInset: 8 * scale,
-                       cornerRadius: 7 * scale,
+                       cornerRadius: 6 * scale,
                        fontSize: 22 * scale,
-                       secondaryFontSize: 11 * scale,
+                       // The halves stay clean: no corner hints on the small keys.
+                       secondaryFontSize: 0,
                        symbolSize: 19 * scale,
                        captionFontSize: 15 * scale)
     }

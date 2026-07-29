@@ -18,7 +18,7 @@ final class KeyboardView: UIView, KeyViewDelegate {
 
     var language: KBLanguage = .en { didSet { if language != oldValue { rebuild() } } }
     var plane: KeyPlane = .letters { didSet { if plane != oldValue { rebuild() } } }
-    var isSplit = false { didSet { if isSplit != oldValue { rebuild() } } }
+    private(set) var isSplit = false
     var shiftState: ShiftState = .off { didSet { applyShift() } }
     var isPad = true
 
@@ -46,6 +46,64 @@ final class KeyboardView: UIView, KeyViewDelegate {
     }
 
     required init?(coder: NSCoder) { fatalError() }
+
+    // MARK: - Splitting
+
+    /// Switches between merged and split with a motion that matches the action:
+    /// the halves travel out to the edges, or back in towards each other.
+    /// `applyHeight` lets the controller resize the input view in between.
+    func setSplit(_ split: Bool, animated: Bool, applyHeight: () -> Void) {
+        guard split != isSplit else { return }
+
+        guard animated, bounds.width > 0, window != nil else {
+            isSplit = split
+            rebuild()
+            applyHeight()
+            return
+        }
+
+        // Freeze what is on screen right now.
+        let ghosts: [UIView] = panels.compactMap { panel in
+            guard let ghost = panel.snapshotView(afterScreenUpdates: false) else { return nil }
+            ghost.frame = panel.frame
+            addSubview(ghost)
+            return ghost
+        }
+
+        isSplit = split
+        rebuild()
+        applyHeight()
+        superview?.layoutIfNeeded()
+        layoutIfNeeded()
+
+        let travel = bounds.width * 0.16
+        // Arriving halves start pulled towards the centre, leaving halves end there.
+        func offset(for index: Int, count: Int) -> CGFloat {
+            guard count == 2 else { return 0 }
+            return index == 0 ? travel : -travel
+        }
+
+        for (index, panel) in panels.enumerated() {
+            panel.transform = CGAffineTransform(translationX: offset(for: index, count: panels.count),
+                                                y: 0)
+            panel.alpha = 0
+        }
+
+        UIView.animate(withDuration: 0.26, delay: 0, usingSpringWithDamping: 0.92,
+                       initialSpringVelocity: 0.2, options: [.curveEaseOut]) {
+            for (index, ghost) in ghosts.enumerated() {
+                ghost.transform = CGAffineTransform(
+                    translationX: offset(for: index, count: ghosts.count), y: 0)
+                ghost.alpha = 0
+            }
+            for panel in self.panels {
+                panel.transform = .identity
+                panel.alpha = 1
+            }
+        } completion: { _ in
+            ghosts.forEach { $0.removeFromSuperview() }
+        }
+    }
 
     // MARK: - Building
 

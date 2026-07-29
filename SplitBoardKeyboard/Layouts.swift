@@ -64,9 +64,9 @@ enum Layouts {
 
     static func bottomRowSplitLeft(plane: KeyPlane) -> [KeySpec] {
         [
+            KeySpec(action: .globe, symbol: "globe", width: 1.15, style: .special),
             planeSwitchKey(for: plane, width: 1.25),
-            KeySpec(action: .globe, symbol: "globe", width: 1.1, style: .special),
-            KeySpec(action: .space, label: "", width: 2.65, style: .normal),
+            KeySpec(action: .space, label: "", width: 2.6, style: .normal),
         ]
     }
 

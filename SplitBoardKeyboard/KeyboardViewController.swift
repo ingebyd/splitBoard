@@ -30,7 +30,8 @@ final class KeyboardViewController: UIInputViewController, KeyboardViewDelegate 
         kb.isPad = traitCollection.userInterfaceIdiom == .pad
         kb.translatesAutoresizingMaskIntoConstraints = false
         kb.language = KBLanguage(rawValue: UserDefaults.standard.string(forKey: Defaults.language) ?? "en") ?? .en
-        kb.isSplit = kb.isPad && UserDefaults.standard.bool(forKey: Defaults.split)
+        kb.setSplit(kb.isPad && UserDefaults.standard.bool(forKey: Defaults.split),
+                    animated: false, applyHeight: {})
         view.addSubview(kb)
         keyboardView = kb
         kb.onContentHeightChange = { [weak self] in self?.updateHeight() }
@@ -270,11 +271,13 @@ final class KeyboardViewController: UIInputViewController, KeyboardViewDelegate 
     }
 
     private func setSplit(_ split: Bool) {
-        keyboardView.isSplit = split
-        updateBackdrop()
+        keyboardView.setSplit(split, animated: true) { [weak self] in
+            guard let self else { return }
+            self.updateBackdrop()
+            self.updateHeight()
+            self.view.layoutIfNeeded()
+        }
         UserDefaults.standard.set(split, forKey: Defaults.split)
-        updateHeight()
-        UIView.animate(withDuration: 0.18) { self.view.layoutIfNeeded() }
     }
 
     // MARK: - Auto capitalisation

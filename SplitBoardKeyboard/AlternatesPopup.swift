@@ -37,7 +37,7 @@ final class AlternatesPopup: UIView {
             let label = UILabel()
             label.text = option
             label.textAlignment = .center
-            label.font = .systemFont(ofSize: metrics.fontSize * 0.92)
+            label.font = Theme.keycapFont(ofSize: metrics.fontSize * 0.92)
             label.textColor = Theme.keyLabel
             addSubview(label)
             itemViews.append(label)
