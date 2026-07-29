@@ -37,4 +37,5 @@ is updated.
 
 ## Contact
 
-Write to: <your email here>
+Questions and bug reports go to the project's issue tracker:
+https://github.com/ingebyd/splitBoard/issues
