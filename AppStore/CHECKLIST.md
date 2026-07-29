@@ -5,7 +5,7 @@
 
 ## 1. Аккаунт и соглашения (ты)
 
-- [ ] Бесплатная публикация: ничего подписывать не нужно, действующего
+- [x] Публикуем бесплатно: подписывать ничего не нужно, действующего
       Apple Developer Program Agreement достаточно.
 - [ ] Если решим брать деньги: App Store Connect → Business → Agreements, Tax,
       and Banking → подписать **Paid Applications Agreement**, добавить
@@ -14,9 +14,9 @@
 
 ## 2. Ссылки (ты)
 
-- [ ] Support URL - обязателен. Хватит репозитория на GitHub или простой страницы.
-- [ ] Privacy Policy URL - обязателен для клавиатуры. Текст готов:
-      `AppStore/privacy-policy.md`, публикуется как есть на GitHub Pages.
+- [x] Support URL: https://ingebyd.github.io/splitBoard/
+- [x] Privacy Policy URL: https://ingebyd.github.io/splitBoard/privacy.html
+      (страницы уже опубликованы из папки `docs/` через GitHub Pages)
 
 ## 3. Запись приложения в App Store Connect (ты)
 
@@ -36,8 +36,11 @@
 
 ## 5. Скриншоты
 
-- [ ] 13-inch iPad: 2064x2752, от 1 до 10 штук. Лежат в `AppStore/screenshots/`.
+- [ ] 13-inch iPad, альбомные 2752x2064, четыре штуки. Лежат в `AppStore/screenshots/`,
+      собраны из настоящих скриншотов с iPad (исходники в `screenshots/`, вне git).
 - [ ] 11-inch iPad Apple подтянет из 13-дюймовых автоматически.
+- [ ] Пересобрать кадры после правок в дизайне:
+      `compose <исходник> <выход> "подпись" <0|1 тёмная>`
 
 ## 6. Сборка (я, по команде)
 
