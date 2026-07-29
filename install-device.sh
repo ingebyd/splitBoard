@@ -20,14 +20,26 @@ if [ -z "$UDID" ]; then
 fi
 
 echo "==> Устройство: $UDID"
+
+build() {
+  xcodebuild -project SplitBoard.xcodeproj \
+             -scheme SplitBoard \
+             -configuration Debug \
+             -destination "id=$UDID" \
+             -derivedDataPath build-device \
+             -allowProvisioningUpdates \
+             -allowProvisioningDeviceRegistration \
+             build
+}
+
 echo "==> Сборка"
-xcodebuild -project SplitBoard.xcodeproj \
-           -scheme SplitBoard \
-           -configuration Debug \
-           -destination "id=$UDID" \
-           -derivedDataPath build-device \
-           -allowProvisioningUpdates \
-           build | tail -5
+# Первая сборка на новом устройстве регистрирует его в аккаунте и перевыпускает
+# профиль; Xcode при этом иногда не успевает положить файл на диск, поэтому
+# второй заход.
+if ! build | tail -5; then
+  echo "==> Повтор сборки после обновления профиля"
+  build | tail -5
+fi
 
 APP="build-device/Build/Products/Debug-iphoneos/SplitBoard.app"
 echo "==> Установка $APP"
