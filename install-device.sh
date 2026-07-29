@@ -31,7 +31,13 @@ xcodebuild -project SplitBoard.xcodeproj \
 
 APP="build-device/Build/Products/Debug-iphoneos/SplitBoard.app"
 echo "==> Установка $APP"
-xcrun devicectl device install app --device "$UDID" "$APP"
+if ! xcrun devicectl device install app --device "$UDID" "$APP"; then
+  echo
+  echo "Установка не прошла. Самая частая причина - выключен режим разработчика:"
+  echo "  Настройки → Конфиденциальность и безопасность → Режим разработчика → включить,"
+  echo "  перезагрузить iPad и подтвердить. После этого запусти скрипт снова."
+  exit 1
+fi
 
 echo
 echo "Готово. Дальше на iPad:"
