@@ -3,7 +3,7 @@ import UIKit
 /// Debug-only screen that renders the real keyboard inside the app, so store
 /// screenshots can be captured without going through the system input view.
 ///
-///   xcrun simctl launch <device> com.sherkhan.splitboard -gallery split -galleryLang ru
+///   xcrun simctl launch <device> com.ingebyd.splitboard -gallery split -galleryLang ru
 final class GalleryViewController: UIViewController, KeyboardViewDelegate {
 
     private let keyboardView = KeyboardView(frame: .zero)

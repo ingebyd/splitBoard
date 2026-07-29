@@ -1,6 +1,6 @@
 name: SplitBoard
 options:
-  bundleIdPrefix: com.sherkhan
+  bundleIdPrefix: com.ingebyd
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true
@@ -30,7 +30,7 @@ targets:
           - "PrivacyInfo.xcprivacy"
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.sherkhan.splitboard
+        PRODUCT_BUNDLE_IDENTIFIER: com.ingebyd.splitboard
         PRODUCT_NAME: SplitBoard
         INFOPLIST_FILE: SplitBoard/Info.plist
         GENERATE_INFOPLIST_FILE: NO
@@ -47,7 +47,7 @@ targets:
       - path: SplitBoardKeyboard
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.sherkhan.splitboard.keyboard
+        PRODUCT_BUNDLE_IDENTIFIER: com.ingebyd.splitboard.keyboard
         PRODUCT_NAME: SplitBoardKeyboard
         INFOPLIST_FILE: SplitBoardKeyboard/Info.plist
         GENERATE_INFOPLIST_FILE: NO

@@ -22,7 +22,7 @@
 
 - [ ] Apps → «+» → New App
 - [ ] Platform: iOS, Name: **SplitBoard**, Primary Language: English (U.S.)
-- [ ] Bundle ID: `com.sherkhan.splitboard`, SKU: `splitboard-1`
+- [ ] Bundle ID: `com.ingebyd.splitboard`, SKU: `splitboard-1`
 - [ ] Категории: Utilities (основная), Productivity (дополнительная)
 - [ ] Возрастной рейтинг: 4+
 - [ ] Цена: Free (позже можно поменять, но у уже скачавших останется бесплатной)

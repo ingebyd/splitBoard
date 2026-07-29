@@ -71,8 +71,8 @@ Full Access не нужен - клавиатура ничего никуда н�
 
 Приложение не публиковалось; шаги, когда понадобится:
 
-1. В App Store Connect создать приложение с bundle ID `com.sherkhan.splitboard`
-   (расширение `com.sherkhan.splitboard.keyboard` подтянется само).
+1. В App Store Connect создать приложение с bundle ID `com.ingebyd.splitboard`
+   (расширение `com.ingebyd.splitboard.keyboard` подтянется само).
 2. `xcodebuild -project SplitBoard.xcodeproj -scheme SplitBoard -configuration Release \
    -destination 'generic/platform=iOS' -archivePath build/SplitBoard.xcarchive archive`
 3. Xcode → Organizer → Distribute App → TestFlight Internal Testing.
