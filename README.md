@@ -1,9 +1,11 @@
 # SplitBoard
 
 Экранная клавиатура для iPad, которая умеет делиться на две половины - то, что Apple
-убрала из iPadOS 26. Визуально повторяет системную клавиатуру iPadOS 26.
+убрала из iPadOS 26.
 
 Swift + UIKit, без сторонних зависимостей.
+
+**App Store:** https://apps.apple.com/app/splitboard/id6795850998
 
 ![Сведённая клавиатура](docs/merged-light.png)
 ![Разделённая клавиатура](docs/split-light.png)
@@ -67,18 +69,16 @@ project.yml              описание проекта для XcodeGen
 
 Full Access не нужен - клавиатура ничего никуда не отправляет.
 
-## Выкладка в TestFlight
+## Релиз
 
-Приложение не публиковалось; шаги, когда понадобится:
+Версия 1.0 (сборка 3) прошла ревью с первой подачи 8 августа 2026 года.
+Порядок действий для следующей версии и грабли первой подачи - в
+[AppStore/CHECKLIST.md](AppStore/CHECKLIST.md). Коротко:
 
-1. В App Store Connect создать приложение с bundle ID `com.ingebyd.splitboard`
-   (расширение `com.ingebyd.splitboard.keyboard` подтянется само).
-2. `xcodebuild -project SplitBoard.xcodeproj -scheme SplitBoard -configuration Release \
-   -destination 'generic/platform=iOS' -archivePath build/SplitBoard.xcarchive archive`
-3. Xcode → Organizer → Distribute App → TestFlight Internal Testing.
-
-Внутреннее тестирование в TestFlight не проходит ревью, внешнее - проходит.
-Если решим выкладывать в App Store, дизайн клавиш надо будет развести с системным.
+1. Поднять `CURRENT_PROJECT_VERSION` (и `MARKETING_VERSION`, если версия новая).
+2. `./archive.sh` - кладёт архив прямо в папку Organizer.
+3. `greenlight preflight .` перед отправкой.
+4. Organizer → Distribute App → App Store Connect → Upload, затем Submit for Review.
 
 ## Известные ограничения
 
